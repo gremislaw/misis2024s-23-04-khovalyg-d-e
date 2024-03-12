@@ -6,7 +6,7 @@ TEST_CASE("complex io") {
   CHECK(testParse("{1, 2}"));
   CHECK(testParse("{1,2}"));
   CHECK(testParse("{1 ,2 }"));
-  CHECK(testParse("{1 2}"));
+  CHECK(testParse("{1 2}") == false);
   CHECK(testParse("{a, 2}") == false);
 }
 
@@ -33,12 +33,12 @@ TEST_CASE("complex arithmetics") {
   CHECK(rhs != lhs);
 
   CHECK(rhs == Complex(-1, 4));
-  CHECK((-rhs == Complex(1, 4)));
+  CHECK((-rhs == Complex(1, -4)));
 
   CHECK(((lhs + rhs) == Complex(4, 21)));
   CHECK(((lhs - rhs) == Complex(6, 13)));
-  CHECK(((lhs * rhs) == Complex(-5, 68)));
-  CHECK(((lhs / rhs) == Complex(-5, 17 / 4)));
+  CHECK(((lhs * rhs) == Complex(-73, 3)));
+  CHECK(((lhs / rhs) == Complex((double)63 / 17, (double)-37 / 17)));
 
   CHECK_THROWS(lhs / Complex(0, 0));
 }

@@ -4,10 +4,10 @@ Complex::Complex(): re(0.0), im(0.0) {}
 
 Complex::Complex(const Complex& other): re(other.re), im(other.im) {}
 
-Complex::Complex(const double real) : re(real), im(0.0) {}
+Complex::Complex(const double real): re(real), im(0.0) {}
 
 Complex::Complex(const double real, const double imaginary)
-    : re(real), im(imaginary) {}
+  : re(real), im(imaginary) {}
 Complex& Complex::operator=(const Complex& other) {
   re = other.re;
   im = other.im;
