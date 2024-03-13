@@ -7,34 +7,34 @@
 #include <sstream>
 
 class DynArr {
- public:
+public:
   DynArr() = default;
-  DynArr(const DynArr& rhs);
+  DynArr(const DynArr &rhs);
   DynArr(const ptrdiff_t size);
   DynArr(std::initializer_list<float> il);
-  DynArr(DynArr&&) noexcept;
+  DynArr(DynArr &&) noexcept;
   ~DynArr();
 
-  DynArr& operator=(DynArr&&) noexcept;
-  DynArr& operator=(const DynArr& rhs);
+  DynArr &operator=(DynArr &&) noexcept;
+  DynArr &operator=(const DynArr &rhs);
 
   ptrdiff_t Size() const { return size_; }
   ptrdiff_t Capacity() const { return capacity_; }
 
   void Resize(const ptrdiff_t size);
 
-  float& operator[](const ptrdiff_t idx);
+  float &operator[](const ptrdiff_t idx);
 
-  const float& operator[](const ptrdiff_t idx) const;
+  const float &operator[](const ptrdiff_t idx) const;
 
-  std::ostream& Print(std::ostream& ostrm) const;
+  std::ostream &Print(std::ostream &ostrm) const;
 
- private:
-  float* data_ = nullptr;
+private:
+  float *data_ = nullptr;
   ptrdiff_t size_ = 0;
   ptrdiff_t capacity_ = 0;
 };
 
-std::ostream& operator<<(std::ostream& ostrm, const DynArr& rhs);
+std::ostream &operator<<(std::ostream &ostrm, const DynArr &rhs);
 
 #endif

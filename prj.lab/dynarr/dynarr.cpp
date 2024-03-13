@@ -6,13 +6,13 @@ DynArr::DynArr(const ptrdiff_t size)
   if (size <= 0) {
     throw std::invalid_argument("Size should be a positive number");
   } else {
-    for (float* idx = data_; idx < data_ + capacity_; idx++) {
+    for (float *idx = data_; idx < data_ + capacity_; idx++) {
       *idx = 0;
     }
   }
 }
 
-DynArr::DynArr(const DynArr& rhs)
+DynArr::DynArr(const DynArr &rhs)
     : data_{nullptr}, size_{rhs.size_}, capacity_{rhs.capacity_} {
   data_ = new float[capacity_];
   std::copy(rhs.data_, rhs.data_ + rhs.capacity_, data_);
@@ -27,7 +27,7 @@ DynArr::DynArr(std::initializer_list<float> il) {
   }
 }
 
-DynArr::DynArr(DynArr&& rhs) noexcept {
+DynArr::DynArr(DynArr &&rhs) noexcept {
   if (this != &rhs) {
     data_ = rhs.data_;
     size_ = rhs.size_;
@@ -43,14 +43,14 @@ DynArr::~DynArr() {
   data_ = nullptr;
 }
 
-float& DynArr::operator[](const ptrdiff_t idx) {
+float &DynArr::operator[](const ptrdiff_t idx) {
   if (idx >= size_)
     throw std::out_of_range("Index out of range");
   else if (idx < 0)
     throw std::invalid_argument("Index shouldn't be a negative number");
   return *(data_ + idx);
 }
-const float& DynArr::operator[](const ptrdiff_t idx) const {
+const float &DynArr::operator[](const ptrdiff_t idx) const {
   if (idx >= size_)
     throw std::out_of_range("Index out of range");
   else if (idx < 0)
@@ -58,17 +58,17 @@ const float& DynArr::operator[](const ptrdiff_t idx) const {
   return *(data_ + idx);
 }
 
-DynArr& DynArr::operator=(const DynArr& rhs) {
+DynArr &DynArr::operator=(const DynArr &rhs) {
   if (this == &rhs) {
     return *this;
   }
   this->Resize(rhs.size_);
-  for (float* i = data_; i < data_ + capacity_; i++)
+  for (float *i = data_; i < data_ + capacity_; i++)
     *(i) = *(rhs.data_ + (i - data_));
   return *this;
 }
 
-DynArr& DynArr::operator=(DynArr&& rhs) noexcept {
+DynArr &DynArr::operator=(DynArr &&rhs) noexcept {
   if (this != &rhs) {
     delete[] data_;
     data_ = rhs.data_;
@@ -85,12 +85,13 @@ void DynArr::Resize(const ptrdiff_t size) {
   if (size <= 0)
     throw std::invalid_argument("Size should be a positive number");
   else if (size < size_) {
-    for (float* i = data_; i < data_ + size_; i++) {
-      if (i >= data_ + size) *i = 0;
+    for (float *i = data_; i < data_ + size_; i++) {
+      if (i >= data_ + size)
+        *i = 0;
     }
   } else if (size > capacity_) {
-    float* temp = new float[2 * size];
-    for (float* i = temp; i < temp + 2 * size; i++) {
+    float *temp = new float[2 * size];
+    for (float *i = temp; i < temp + 2 * size; i++) {
       if (i - temp < size_)
         *i = *(data_ + (i - temp));
       else
@@ -103,12 +104,13 @@ void DynArr::Resize(const ptrdiff_t size) {
   size_ = size;
 }
 
-std::ostream& operator<<(std::ostream& ostrm, const DynArr& rhs) {
+std::ostream &operator<<(std::ostream &ostrm, const DynArr &rhs) {
   return rhs.Print(ostrm);
 }
 
-std::ostream& DynArr::Print(std::ostream& ostrm) const {
-  for (float* i = data_; i < data_ + size_; i++) ostrm << (*i) << ' ';
+std::ostream &DynArr::Print(std::ostream &ostrm) const {
+  for (float *i = data_; i < data_ + size_; i++)
+    ostrm << (*i) << ' ';
   ostrm << '\n';
   return ostrm;
 }

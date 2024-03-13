@@ -42,5 +42,3 @@ TEST_CASE("complex arithmetics") {
 
   CHECK_THROWS(lhs / Complex(0, 0));
 }
-
-

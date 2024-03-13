@@ -1,6 +1,6 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
-#include "dynarr/dynarr.hpp"
 #include "doctest.h"
+#include "dynarr/dynarr.hpp"
 
 TEST_CASE("dynarr class") {
   DynArr arr(13);

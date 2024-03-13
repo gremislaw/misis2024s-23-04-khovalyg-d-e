@@ -1,6 +1,8 @@
 {
     "cmake.cmakePath": "cmake",
     "files.associations": {
-        "stdexcept": "cpp"
+        "stdexcept": "cpp",
+        "iostream": "cpp",
+        "set": "cpp"
     }
 }

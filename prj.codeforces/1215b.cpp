@@ -6,14 +6,13 @@ int main() {
   int n, a;
   cin >> n;
   long long cnt = 0, cntminus = 0, cntall = 0, ind = 0;
-  for (int i = 1; i <= n; i++){
+  for (int i = 1; i <= n; i++) {
     cin >> a;
     cntall += i;
-    if (a < 0){
+    if (a < 0) {
       cntminus += i - ind;
       ind = i - ind;
-    }
-    else{
+    } else {
       cntminus += ind;
     }
   }
