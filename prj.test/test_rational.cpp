@@ -11,7 +11,20 @@ TEST_CASE("rational io") {
   CHECK(testParse(" 1 /2 ") == false);
 }
 
-TEST_CASE("rational constructor") {
+TEST_CASE("rational constructor move") {
+  Rational r1(1, 2);
+  Rational r2(std::move(r1));
+  CHECK(r2 == Rational(1, 2));
+
+  Rational r3(3, 4);
+  r2 = std::move(r3);
+  CHECK(r2 == Rational(3, 4));
+
+  Rational&& r4 = Rational(5, 6);
+  CHECK(r4 == Rational(5, 6));
+}
+
+TEST_CASE("rational constructor ") {
   Rational r_def;
   CHECK(0 == r_def.num());
   CHECK(1 == r_def.den());

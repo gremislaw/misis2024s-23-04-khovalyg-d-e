@@ -8,7 +8,7 @@ Rational::Rational(int64_t num, int64_t den) : num_{num}, den_{den} {
   } else {
     num_ = num;
     den_ = den;
-    ChangeRational();
+    ChangeSign();
   }
 }
 
@@ -16,7 +16,7 @@ int64_t Rational::num() const { return num_; }
 
 int64_t Rational::den() const { return den_; }
 
-void Rational::ChangeRational() {
+void Rational::ChangeSign() {
   if (den_ < 0) {
     den_ = -den_;
     num_ = -num_;
@@ -29,7 +29,7 @@ Rational &Rational::operator=(const Rational &rhs) {
   if (this != &rhs) {
     num_ = rhs.num_;
     den_ = rhs.den_;
-    ChangeRational();
+    ChangeSign();
   }
   return *this;
 }
@@ -40,7 +40,7 @@ Rational &Rational::operator=(const int64_t rhs) {
 Rational &Rational::operator*=(const Rational &rhs) {
   num_ *= rhs.num_;
   den_ *= rhs.den_;
-  ChangeRational();
+  ChangeSign();
   return *this;
 }
 Rational &Rational::operator*=(const int64_t rhs) {
@@ -51,7 +51,7 @@ Rational &Rational::operator/=(const Rational &rhs) {
   if (rhs.num_ != 0) {
     num_ *= rhs.den_;
     den_ *= rhs.num_;
-    ChangeRational();
+    ChangeSign();
     return *this;
   }
   throw std::invalid_argument("Divide by zero exception");
@@ -64,7 +64,7 @@ Rational &Rational::operator+=(const Rational &rhs) {
   int64_t GCD = std::gcd(den_, rhs.den_);
   num_ = num_ * (rhs.den_ / GCD) + rhs.num_ * (den_ / GCD);
   den_ = den_ / GCD * rhs.den_;
-  ChangeRational();
+  ChangeSign();
   return *this;
 }
 Rational &Rational::operator+=(const int64_t rhs) {
@@ -75,7 +75,7 @@ Rational &Rational::operator-=(const Rational &rhs) {
   int64_t GCD = std::gcd(den_, rhs.den_);
   num_ = num_ * (rhs.den_ / GCD) - rhs.num_ * (den_ / GCD);
   den_ = den_ / GCD * rhs.den_;
-  ChangeRational();
+  ChangeSign();
   return *this;
 }
 Rational &Rational::operator-=(const int64_t rhs) {
@@ -247,7 +247,7 @@ std::istream &Rational::readFrom(std::istream &istrm) {
     if (denominator > 0 && division_sign == Rational::slash) {
       num_ = numerator;
       den_ = denominator;
-      ChangeRational();
+      ChangeSign();
     } else {
       istrm.setstate(std::ios_base::failbit);
     }

@@ -39,7 +39,7 @@ public:
 private:
   int64_t num_{0};
   int64_t den_{1};
-  void ChangeRational();
+  void ChangeSign();
   static const char slash{'/'};
 };
 

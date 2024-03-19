@@ -28,14 +28,12 @@ DynArr::DynArr(std::initializer_list<float> il) {
 }
 
 DynArr::DynArr(DynArr &&rhs) noexcept {
-  if (this != &rhs) {
-    data_ = rhs.data_;
-    size_ = rhs.size_;
-    capacity_ = rhs.capacity_;
-    rhs.data_ = nullptr;
-    rhs.size_ = 0;
-    rhs.capacity_ = 0;
-  }
+  data_ = rhs.data_;
+  size_ = rhs.size_;
+  capacity_ = rhs.capacity_;
+  rhs.data_ = nullptr;
+  rhs.size_ = 0;
+  rhs.capacity_ = 0;
 }
 
 DynArr::~DynArr() {
