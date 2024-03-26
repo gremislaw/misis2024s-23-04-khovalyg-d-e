@@ -7,7 +7,7 @@
 #include <sstream>
 
 class DynArr {
-public:
+ public:
   DynArr() = default;
   DynArr(const DynArr &rhs);
   DynArr(const ptrdiff_t size);
@@ -29,7 +29,7 @@ public:
 
   std::ostream &Print(std::ostream &ostrm) const;
 
-private:
+ private:
   float *data_ = nullptr;
   ptrdiff_t size_ = 0;
   ptrdiff_t capacity_ = 0;

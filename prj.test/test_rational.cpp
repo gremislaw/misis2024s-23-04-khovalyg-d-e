@@ -20,7 +20,7 @@ TEST_CASE("rational constructor move") {
   r2 = std::move(r3);
   CHECK(r2 == Rational(3, 4));
 
-  Rational&& r4 = Rational(5, 6);
+  Rational &&r4 = Rational(5, 6);
   CHECK(r4 == Rational(5, 6));
 }
 

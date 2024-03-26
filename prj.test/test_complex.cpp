@@ -20,7 +20,7 @@ TEST_CASE("complex constructor move") {
   CHECK(c3.re == 1);
   CHECK(c3.im == 2);
 
-  Complex&& c4 = Complex(1, 2);
+  Complex &&c4 = Complex(1, 2);
   CHECK(c4.re == 1);
   CHECK(c4.im == 2);
 }

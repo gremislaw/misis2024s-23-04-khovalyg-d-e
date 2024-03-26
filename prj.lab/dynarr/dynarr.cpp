@@ -27,10 +27,8 @@ DynArr::DynArr(std::initializer_list<float> il) {
   }
 }
 
-DynArr::DynArr(DynArr &&rhs) noexcept {
-  data_ = rhs.data_;
-  size_ = rhs.size_;
-  capacity_ = rhs.capacity_;
+DynArr::DynArr(DynArr &&rhs) noexcept
+    : data_(rhs.data_), size_(rhs.size_), capacity_(rhs.capacity_) {
   rhs.data_ = nullptr;
   rhs.size_ = 0;
   rhs.capacity_ = 0;
@@ -69,12 +67,9 @@ DynArr &DynArr::operator=(const DynArr &rhs) {
 DynArr &DynArr::operator=(DynArr &&rhs) noexcept {
   if (this != &rhs) {
     delete[] data_;
-    data_ = rhs.data_;
-    size_ = rhs.size_;
-    capacity_ = rhs.capacity_;
-    rhs.data_ = nullptr;
-    rhs.size_ = 0;
-    rhs.capacity_ = 0;
+    std::swap(data_, rhs.data_);
+    std::swap(size_, rhs.size_);
+    std::swap(capacity_, rhs.capacity_);
   }
   return *this;
 }
@@ -84,8 +79,7 @@ void DynArr::Resize(const ptrdiff_t size) {
     throw std::invalid_argument("Size should be a positive number");
   else if (size < size_) {
     for (float *i = data_; i < data_ + size_; i++) {
-      if (i >= data_ + size)
-        *i = 0;
+      if (i >= data_ + size) *i = 0;
     }
   } else if (size > capacity_) {
     float *temp = new float[2 * size];
@@ -107,8 +101,7 @@ std::ostream &operator<<(std::ostream &ostrm, const DynArr &rhs) {
 }
 
 std::ostream &DynArr::Print(std::ostream &ostrm) const {
-  for (float *i = data_; i < data_ + size_; i++)
-    ostrm << (*i) << ' ';
+  for (float *i = data_; i < data_ + size_; i++) ostrm << (*i) << ' ';
   ostrm << '\n';
   return ostrm;
 }
