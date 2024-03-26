@@ -16,10 +16,8 @@ void solve() {
     set<char> even;
     set<char> odd;
     int res = 1;
-    for (int i = 0; i < n; i += 2)
-      even.insert(s[i]);
-    for (int j = 1; j < n; j += 2)
-      odd.insert(s[j]);
+    for (int i = 0; i < n; i += 2) even.insert(s[i]);
+    for (int j = 1; j < n; j += 2) odd.insert(s[j]);
     for (int i : even)
       if (odd.find(i) != odd.end()) {
         res = 0;

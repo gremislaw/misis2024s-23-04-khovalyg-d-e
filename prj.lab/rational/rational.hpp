@@ -7,7 +7,7 @@
 #include <sstream>
 
 class Rational {
-public:
+ public:
   Rational();
   Rational(Rational &&) = default;
   Rational(const Rational &) = default;
@@ -36,7 +36,7 @@ public:
   std::istream &readFrom(std::istream &istr);
   std::ostream &writeTo(std::ostream &ostr) const;
 
-private:
+ private:
   int64_t num_{0};
   int64_t den_{1};
   void ChangeSign();

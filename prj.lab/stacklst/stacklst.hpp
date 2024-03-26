@@ -8,16 +8,16 @@
 
 #include "../complex/complex.hpp"
 
-class StackArr {
+class StackLst {
  public:
-  StackArr() = default;
-  StackArr(StackArr &&);
-  StackArr(const StackArr &);
-  StackArr(const Complex &);
-  ~StackArr();
+  StackLst() = default;
+  StackLst(StackLst &&);
+  StackLst(const StackLst &);
+  StackLst(const Complex &);
+  ~StackLst();
 
-  StackArr &operator=(const StackArr &);
-  StackArr &operator=(StackArr &&);
+  StackLst &operator=(const StackLst &);
+  StackLst &operator=(StackLst &&);
 
   [[nodiscard]] bool IsEmpty() const noexcept;
 
@@ -30,9 +30,11 @@ class StackArr {
   void Clear() noexcept;
 
  private:
-  ptrdiff_t size_ = 0;
-  ptrdiff_t top_ind_ = -1;
-  Complex *data_ = nullptr;
+  struct Node {
+    Complex data;
+    Node *next = nullptr;
+  };
+  Node *head_ = nullptr;
 };
 
 #endif
