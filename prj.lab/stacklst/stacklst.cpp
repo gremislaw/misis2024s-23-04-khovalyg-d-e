@@ -18,10 +18,7 @@ StackLst::StackLst(const StackLst &src) {
   }
 }
 
-StackLst::StackLst(const Complex &val) {
-  head_ = new Node;
-  head_->data = val;
-}
+StackLst::StackLst(const Complex &val) { Push(val); }
 
 StackLst &StackLst::operator=(StackLst &&src) {
   if (this != &src) {
@@ -51,13 +48,7 @@ StackLst &StackLst::operator=(const StackLst &src) {
   return *this;
 }
 
-StackLst::~StackLst() {
-  while (head_ != nullptr) {
-    Node *temp = head_;
-    head_ = head_->next;
-    delete temp;
-  }
-}
+StackLst::~StackLst() { Clear(); }
 
 bool StackLst::IsEmpty() const noexcept { return head_ == nullptr; }
 
@@ -70,10 +61,15 @@ void StackLst::Pop() noexcept {
 }
 
 void StackLst::Push(const Complex &val) {
-  Node *new_head = new Node;
-  new_head->data = val;
-  new_head->next = head_;
-  head_ = new_head;
+  if (IsEmpty()) {
+    head_ = new Node;
+    head_->data = val;
+  } else {
+    Node *new_head = new Node;
+    new_head->data = val;
+    new_head->next = head_;
+    head_ = new_head;
+  }
 }
 
 Complex &StackLst::Top() {
@@ -91,9 +87,7 @@ const Complex &StackLst::Top() const {
 }
 
 void StackLst::Clear() noexcept {
-  while (head_ != nullptr) {
-    Node *temp = head_;
-    head_ = head_->next;
-    delete temp;
+  while (!IsEmpty()) {
+    Pop();
   }
 }
