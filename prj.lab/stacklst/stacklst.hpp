@@ -11,13 +11,13 @@
 class StackLst {
  public:
   StackLst() = default;
-  StackLst(StackLst &&);
+  StackLst(StackLst &&) noexcept;
   StackLst(const StackLst &);
   StackLst(const Complex &);
   ~StackLst();
 
   StackLst &operator=(const StackLst &);
-  StackLst &operator=(StackLst &&);
+  StackLst &operator=(StackLst &&) noexcept;
 
   [[nodiscard]] bool IsEmpty() const noexcept;
 

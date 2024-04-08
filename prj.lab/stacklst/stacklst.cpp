@@ -1,6 +1,8 @@
 #include "stacklst.hpp"
 
-StackLst::StackLst(StackLst &&src) : head_(src.head_) { src.head_ = nullptr; }
+StackLst::StackLst(StackLst &&src) noexcept : head_(src.head_) {
+  src.head_ = nullptr;
+}
 
 StackLst::StackLst(const StackLst &src) {
   if (!src.IsEmpty()) {
@@ -18,9 +20,12 @@ StackLst::StackLst(const StackLst &src) {
   }
 }
 
-StackLst::StackLst(const Complex &val) { Push(val); }
+StackLst::StackLst(const Complex &val) {
+  head_ = new Node;
+  head_->data = val;
+}
 
-StackLst &StackLst::operator=(StackLst &&src) {
+StackLst &StackLst::operator=(StackLst &&src) noexcept {
   if (this != &src) {
     Clear();
     std::swap(head_, src.head_);
@@ -55,7 +60,7 @@ bool StackLst::IsEmpty() const noexcept { return head_ == nullptr; }
 void StackLst::Pop() noexcept {
   if (!IsEmpty()) {
     Node *temp = head_;
-    head_ = head_->next;
+    head_ = temp->next;
     delete temp;
   }
 }
