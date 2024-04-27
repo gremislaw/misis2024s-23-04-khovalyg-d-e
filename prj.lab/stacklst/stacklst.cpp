@@ -53,7 +53,11 @@ StackLst &StackLst::operator=(const StackLst &src) {
   return *this;
 }
 
-StackLst::~StackLst() { Clear(); }
+StackLst::~StackLst() {
+  while (!IsEmpty()) {
+    Pop();
+  }
+}
 
 bool StackLst::IsEmpty() const noexcept { return head_ == nullptr; }
 
@@ -66,15 +70,10 @@ void StackLst::Pop() noexcept {
 }
 
 void StackLst::Push(const Complex &val) {
-  if (IsEmpty()) {
-    head_ = new Node;
-    head_->data = val;
-  } else {
-    Node *new_head = new Node;
-    new_head->data = val;
-    new_head->next = head_;
-    head_ = new_head;
-  }
+  Node *new_head = new Node;
+  new_head->data = val;
+  new_head->next = head_;
+  head_ = new_head;
 }
 
 Complex &StackLst::Top() {
