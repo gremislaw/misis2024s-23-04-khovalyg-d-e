@@ -69,9 +69,12 @@ DynArr &DynArr::operator=(const DynArr &rhs) {
 DynArr &DynArr::operator=(DynArr &&rhs) noexcept {
   if (this != &rhs) {
     delete[] data_;
-    std::swap(data_, rhs.data_);
-    std::swap(size_, rhs.size_);
-    std::swap(capacity_, rhs.capacity_);
+    data_ = rhs.data_;
+    size_ = rhs.size_;
+    capacity_ = rhs.capacity_;
+    rhs.data_ = nullptr;
+    rhs.size_ = 0;
+    rhs.capacity_ = 0;
   }
   return *this;
 }

@@ -7,7 +7,7 @@ QueueLstPr::QueueLstPr(QueueLstPr &&src) noexcept
 }
 
 QueueLstPr::QueueLstPr(const QueueLstPr &src) {
-  for (Node *temp = src.head_; temp != nullptr; temp = temp->next) {
+  for (Node *temp = src.head_; temp; temp = temp->next) {
     Push(temp->data);
   }
 }
@@ -26,14 +26,18 @@ QueueLstPr &QueueLstPr::operator=(QueueLstPr &&src) noexcept {
 QueueLstPr &QueueLstPr::operator=(const QueueLstPr &src) {
   if (this != &src) {
     Clear();
-    for (Node *temp = src.head_; temp != nullptr; temp = temp->next) {
+    for (Node *temp = src.head_; temp; temp = temp->next) {
       Push(temp->data);
     }
   }
   return *this;
 }
 
-QueueLstPr::~QueueLstPr() { Clear(); }
+QueueLstPr::~QueueLstPr() {
+  while (!IsEmpty()) {
+    Pop();
+  }
+}
 
 bool QueueLstPr::IsEmpty() const noexcept { return head_ == nullptr; }
 
