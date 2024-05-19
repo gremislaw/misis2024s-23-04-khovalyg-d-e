@@ -9,6 +9,7 @@
 #include <vector>
 
 class BitSet {
+ public:
   BitSet() = default;
   BitSet(BitSet&&) noexcept;
   BitSet(const BitSet&);
@@ -37,7 +38,7 @@ class BitSet {
   std::ostream& WriteTxt(std::ostream&);
   std::ostream& WriteBinary(std::ostream&);
   std::istream& ReadTxt(std::istream&);
-  std::istream& RaadBinary(std::istream&);
+  std::istream& ReadBinary(std::istream&);
 
  private:
   std::int32_t size_ = 0;
