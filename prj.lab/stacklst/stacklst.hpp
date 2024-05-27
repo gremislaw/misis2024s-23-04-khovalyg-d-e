@@ -19,13 +19,13 @@ class StackLst {
   StackLst &operator=(const StackLst &);
   StackLst &operator=(StackLst &&) noexcept;
 
-  [[nodiscard]] bool IsEmpty() const noexcept;
+  bool IsEmpty() const noexcept;
 
   void Pop() noexcept;
   void Push(const Complex &val);
 
-  [[nodiscard]] Complex &Top();
-  [[nodiscard]] const Complex &Top() const;
+  Complex &Top();
+  const Complex &Top() const;
 
   void Clear() noexcept;
 

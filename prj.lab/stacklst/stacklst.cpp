@@ -1,21 +1,21 @@
 #include "stacklst.hpp"
 
-StackLst::StackLst(StackLst &&src) noexcept : head_(src.head_) {
+StackLst::StackLst(StackLst &&src) noexcept : head_{src.head_} {
   src.head_ = nullptr;
 }
 
 StackLst::StackLst(const StackLst &src) {
+  head_ = nullptr;
   if (!src.IsEmpty()) {
     head_ = new Node;
     head_->data = src.head_->data;
     Node *temp = src.head_->next;
     Node *prev = head_;
-    while (temp != nullptr) {
-      Node *new_elem = new Node;
-      new_elem->data = temp->data;
-      prev->next = new_elem;
-      prev = new_elem;
-      temp = temp->next;
+    for (; temp->next != nullptr; temp = temp->next) {
+      Node *elem = new Node;
+      elem->data = temp->data;
+      prev->next = elem;
+      prev = elem;
     }
   }
 }
@@ -28,26 +28,26 @@ StackLst::StackLst(const Complex &val) {
 StackLst &StackLst::operator=(StackLst &&src) noexcept {
   if (this != &src) {
     Clear();
-    std::swap(head_, src.head_);
+    head_ = src.head_;
+    src.head_ = nullptr;
   }
   return *this;
 }
 
 StackLst &StackLst::operator=(const StackLst &src) {
   if (this != &src) {
+    Clear();
     if (!IsEmpty()) {
-      Clear();
-    }
-    head_ = new Node;
-    head_->data = src.head_->data;
-    Node *temp = src.head_->next;
-    Node *prev = head_;
-    while (temp != nullptr) {
-      Node *new_elem = new Node;
-      new_elem->data = temp->data;
-      prev->next = new_elem;
-      prev = new_elem;
-      temp = temp->next;
+      head_ = new Node;
+      head_->data = src.head_->data;
+      Node *temp = src.head_->next;
+      Node *prev = head_;
+      for (; temp->next != nullptr; temp = temp->next) {
+        Node *elem = new Node;
+        elem->data = temp->data;
+        prev->next = elem;
+        prev = elem;
+      }
     }
   }
   return *this;
