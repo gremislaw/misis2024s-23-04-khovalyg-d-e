@@ -33,11 +33,7 @@ QueueLstPr &QueueLstPr::operator=(const QueueLstPr &src) {
   return *this;
 }
 
-QueueLstPr::~QueueLstPr() {
-  while (!IsEmpty()) {
-    Pop();
-  }
-}
+QueueLstPr::~QueueLstPr() { Clear(); }
 
 bool QueueLstPr::IsEmpty() const noexcept { return head_ == nullptr; }
 
@@ -47,6 +43,9 @@ void QueueLstPr::Pop() noexcept {
     head_ = head_->next;
     delete temp;
   }
+  if (IsEmpty()) {
+    tail_ = nullptr;
+  }
 }
 
 void QueueLstPr::Push(const float &val) {
@@ -55,17 +54,13 @@ void QueueLstPr::Push(const float &val) {
     tail_->data = val;
     head_ = tail_;
   } else {
-    Node *new_elem = new Node;
-    new_elem->data = val;
     Node *temp = head_;
-    Node *prev = new Node;
-    for (; temp && temp->data < new_elem->data; temp = temp->next) prev = temp;
+    Node *prev = nullptr;
+    for (; temp && temp->data < val; temp = temp->next) prev = temp;
     if (prev) {
-      new_elem->next = temp;
-      prev->next = new_elem;
+      prev->next = new Node{temp, val};
     } else {
-      new_elem->next = head_;
-      head_ = new_elem;
+      head_ = new Node{head_, val};
     }
   }
 }

@@ -1,5 +1,13 @@
 #include "complex.hpp"
 
+Complex::Complex(Complex &&x) noexcept : re(x.re), im(x.im) {}
+
+Complex &Complex::operator=(Complex &&x) noexcept {
+  re = x.re;
+  im = x.im;
+  return *this;
+}
+
 Complex::Complex() : re(0.0), im(0.0) {}
 
 Complex::Complex(const Complex &other) : re(other.re), im(other.im) {}
@@ -72,7 +80,8 @@ Complex &Complex::operator*=(const double rhs) {
 }
 
 bool Complex::operator==(const Complex &other) const {
-  return re == other.re && im == other.im;
+  return ((std::abs(re - other.re) <= std::numeric_limits<double>::epsilon()) &&
+          (std::abs(im - other.im) <= std::numeric_limits<double>::epsilon()));
 }
 
 bool Complex::operator!=(const Complex &other) const {

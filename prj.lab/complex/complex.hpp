@@ -10,9 +10,10 @@
 struct Complex {
   [[nodiscard]] Complex();
   [[nodiscard]] Complex(const Complex &);
-  Complex(Complex &&) = default;
+
   [[nodiscard]] explicit Complex(const double real);
   [[nodiscard]] Complex(const double real, const double imaginary);
+  Complex(Complex &&x) noexcept;
 
   Complex &operator=(Complex &&) = default;
   Complex &operator=(const Complex &other);
@@ -20,6 +21,7 @@ struct Complex {
 
   [[nodiscard]] Complex operator-() const;
 
+  Complex &operator=(Complex &&x) noexcept;
   bool operator==(const Complex &other) const;
   bool operator!=(const Complex &other) const;
 
